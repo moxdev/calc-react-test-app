@@ -268,8 +268,25 @@ textarea,
 body {
   font-family: sans-serif;
 }
-.App {
+.main-content {
   text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+input[type="text"],
+input[type="submit"] {
+  display: block;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: 1px solid #333;
+  margin: 1em 0;
+}
+button {
+  border: 1px solid #333;
+  padding: 0.5em 1em;
+  background: transparent;
 }
 header {
   display: -webkit-box;
@@ -319,16 +336,7 @@ header .App-logo {
             transform: rotate(360deg);
   }
 }
-.display-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.display-inner .wrapper {
-  margin: 0 auto;
+.main-title {
   max-width: 600px;
-}
-.display-inner input {
-  display: block;
-  width: 100%;
-  margin: 1em;
+  margin: 0 auto;
 }
