@@ -11,7 +11,7 @@ const App = () => (
     <div className="App">
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route path="/month/:ID" component={Content} />
+        <Route path="/project/:pageID" component={Content} />
         <Route component={FourOhFour} />
       </Switch>
     </div>

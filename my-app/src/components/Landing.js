@@ -12,7 +12,9 @@ class Landing extends Component {
 
     const pageID = this.textInput.value;
 
-    this.context.router.history.push(`/project/${pageID}`);
+    if (pageID.length === 0) {
+      alert('Please name your project before moving forward');
+    } else this.context.router.history.push(`/project/${pageID}`);
   }
 
   render() {

@@ -44,7 +44,7 @@ const YourComponentName = (props) => {
 ```
 
 # Browser Router
-
+- [Read this for BRv4](https://stackoverflow.com/questions/42123261/programmatically-navigate-using-react-router-v4)
 - react-router required `yarn add react-router --dev`
 - add `import { BrowserRouter, Route, Switch } from 'react-router-dom';`
 
