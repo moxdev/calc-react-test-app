@@ -7,12 +7,14 @@ import Display from './Display';
 class Content extends Component {
   render() {
     return (
-      <div className="main-content">
+      <div className="wrapper">
         <Header />
-        <ContentHeader tagline="static tagline" />
-        <div className="main-wrapper">
-          <Create />
-          <Display />
+        <div className="main-content">
+          <ContentHeader title={this.props.match.params.pageID} tagline="static tagline" />
+          <div className="main-wrapper">
+            <Create />
+            <Display />
+          </div>
         </div>
       </div>
     );

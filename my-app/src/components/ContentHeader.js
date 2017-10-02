@@ -5,7 +5,7 @@ class ContentHeader extends Component {
   render() {
     return (
       <div className="content-header">
-        <h1>Title</h1>
+        <h1>{this.props.title}</h1>
         <h3 className="tagline">{this.props.tagline}</h3>
       </div>
     );

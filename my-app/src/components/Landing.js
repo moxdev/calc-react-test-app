@@ -4,17 +4,20 @@ import PropTypes from 'prop-types';
 class Landing extends Component {
   constructor() {
     super();
+
     this.goToProject = this.goToProject.bind(this);
   }
 
   goToProject(e) {
     e.preventDefault();
 
-    const pageID = this.textInput.value;
+    const project = {
+      title: this.textInput.value
+    };
 
-    if (pageID.length === 0) {
+    if (project.title.length === 0) {
       alert('Please name your project before moving forward');
-    } else this.context.router.history.push(`/project/${pageID}`);
+    } else this.context.router.history.push(`/project/${project.title}`);
   }
 
   render() {
