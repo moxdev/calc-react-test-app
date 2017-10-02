@@ -268,13 +268,25 @@ textarea,
 body {
   font-family: sans-serif;
 }
-.main-content {
+body .main-content {
   text-align: center;
   max-width: 1000px;
   margin: 0 auto;
 }
-input[type="text"],
-input[type="submit"] {
+.landing-page-wrapper {
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.landing-page-wrapper h1 {
+  text-transform: uppercase;
+}
+.landing-page-wrapper form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.landing-page-wrapper input[type="text"],
+.landing-page-wrapper input[type="submit"] {
   display: block;
   width: 100%;
   text-align: center;
@@ -282,8 +294,9 @@ input[type="submit"] {
   font-weight: 700;
   border: 1px solid #333;
   margin: 1em 0;
+  padding: 0.5em 1em;
 }
-button {
+.landing-page-wrapper button {
   border: 1px solid #333;
   padding: 0.5em 1em;
   background: transparent;
@@ -336,7 +349,15 @@ header .App-logo {
             transform: rotate(360deg);
   }
 }
-.main-title {
-  max-width: 600px;
-  margin: 0 auto;
+.main-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.main-wrapper section {
+  border: 1px solid #333;
+  width: 500px;
 }

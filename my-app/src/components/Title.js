@@ -3,21 +3,16 @@ import PropTypes from 'prop-types';
 
 class Title extends Component {
   state = {
-    textInput: ''
+    textInput: 'My Project'
   };
   render() {
-    const { title } = this.props;
     return (
       <div className="main-title">
-        <h1>{title}</h1>
+        <h1>Project</h1>
       </div>
     );
   }
 }
-
-Title.defaultProps = {
-  title: 'My Project'
-};
 
 Title.propTypes = {
   title: PropTypes.element.isRequired

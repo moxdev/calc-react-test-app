@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
-import Header from './Header';
-import Title from './Title';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+// import type { Match } from 'react-router-dom';
+import Landing from './Landing';
+import Content from './Content';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <div className="main-content">
-          <Title />
-        </div>
-      </div>
-    );
-  }
-}
+const FourOhFour = () => <h1>404</h1>;
+
+const App = () => (
+  <BrowserRouter>
+    <div className="App">
+      <Switch>
+        <Route exact path="/" component={Landing} />
+        <Route path="/month/:ID" component={Content} />
+        <Route component={FourOhFour} />
+      </Switch>
+    </div>
+  </BrowserRouter>
+);
 
 export default App;
