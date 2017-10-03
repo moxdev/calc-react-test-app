@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Header from './Header';
 import ContentHeader from './ContentHeader';
 import Create from './Create';
 import Display from './Display';
 
+/* eslint react/prop-types: 0 */
+
 class Content extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      items: {}
+    };
+
+    this.addItem = this.addItem.bind(this);
+  }
+
+  addItem(item) {
+    const items = { ...this.state.newItems };
+    const timestamp = Date.now();
+
+    items[`bill-${timestamp}`] = item;
+
+    this.setState({ items });
+    // ES6 same as > this.setState({ items: items });
+  }
+
   render() {
     return (
       <div className="wrapper">
@@ -13,7 +34,7 @@ class Content extends Component {
         <div className="main-content">
           <ContentHeader title={this.props.match.params.pageID} />
           <div className="main-wrapper">
-            <Create />
+            <Create addItem={this.addItem} />
             <Display />
           </div>
         </div>
@@ -21,9 +42,5 @@ class Content extends Component {
     );
   }
 }
-
-Content.propTypes = {
-  match: PropTypes.element.isRequired
-};
 
 export default Content;
