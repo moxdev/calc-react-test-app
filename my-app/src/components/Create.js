@@ -13,12 +13,14 @@ class Create extends Component {
     };
 
     this.props.addItem(newItem);
+    this.createItemsForm.reset();
   }
+
   render() {
     return (
       <section className="create">
         <h1>Create</h1>
-        <form onSubmit={e => this.createItem(e)}>
+        <form ref={input => (this.createItemsForm = input)} onSubmit={e => this.createItem(e)}>
           <input ref={input => (this.title = input)} type="text" placeholder="Title" />
           <input ref={input => (this.amount = input)} type="text" placeholder="Amount" />
           <input ref={input => (this.due = input)} type="text" placeholder="Due Date" />

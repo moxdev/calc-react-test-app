@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import sampleItems from '../sample-items.js';
 import Header from './Header';
 import ContentHeader from './ContentHeader';
 import Create from './Create';
@@ -14,7 +15,14 @@ class Content extends Component {
       items: {}
     };
 
+    this.loadSamples = this.loadSamples.bind(this);
     this.addItem = this.addItem.bind(this);
+  }
+
+  loadSamples() {
+    this.setState({
+      items: sampleItems
+    });
   }
 
   addItem(item) {
@@ -35,7 +43,7 @@ class Content extends Component {
           <ContentHeader title={this.props.match.params.pageID} />
           <div className="main-wrapper">
             <Create addItem={this.addItem} />
-            <Display />
+            <Display items={this.state.items} loadSamples={this.loadSamples} />
           </div>
         </div>
       </div>

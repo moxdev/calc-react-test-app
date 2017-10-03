@@ -30,6 +30,16 @@ and scripts into the app directory. If you do this, you can’t go back!
 - `$r.props.specificprop` 
   - shows the specific prop of the component
 
+# PropTypes Verification
+
+- for functions
+- [Read](https://github.com/yannickcr/eslint-plugin-react/issues/134)
+```jsx
+Create.propTypes = {
+  addItem: PropTypes.func.isRequired
+};
+```
+
 # Stateless Functions
 [Stateless Function Docs](https://reactjs.org/docs/context.html#referencing-context-in-stateless-functional-components)
 - no need to use the ES6 class for outputting stateless functions
