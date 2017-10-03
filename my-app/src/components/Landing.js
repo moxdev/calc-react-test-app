@@ -32,7 +32,6 @@ class Landing extends Component {
               this.textInput = input;
             }}
           />
-          <input tagline="static tagline" type="text" placeholder="My Project Tagline" />
 
           <button type="submit">Next &raquo;</button>
         </form>
