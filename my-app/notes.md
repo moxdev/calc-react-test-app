@@ -2,6 +2,49 @@
 - in the package.json
 `"start": "NODE_PATH=src react-scripts start"`
 
+# Firebase
+ - ID: `bills-test-app-f06d5`
+ - rebase v3 requires firebase import
+ - [Rebase Docs](https://github.com/tylermcginnis/re-base)
+
+## Create a base.js file
+- `import base from '.base'`
+
+```jsx
+import Rebase from 're-base';
+import firebase from 'firebase';
+
+const app = firebase.initializeApp({
+  apiKey: 'AIzaSyAA7v56oVnf0H6SiqT3TVLVNQ9l0xldePU',
+  authDomain: 'bills-test-app-f06d5.firebaseapp.com',
+  databaseURL: 'https://bills-test-app-f06d5.firebaseio.com',
+  projectId: 'bills-test-app-f06d5',
+  storageBucket: 'bills-test-app-f06d5.appspot.com',
+  messagingSenderId: '878236368012'
+});
+
+const base = Rebase.createClass(app.database());
+
+export default base;
+```
+
+## Put Sync Function in state file
+
+```jsx
+// Sync to Firebase
+componentWillMount() {
+  this.ref = base.syncState(`project/${this.props.match.params.pageID}`, {
+    context: this,
+    state: 'items'
+  });
+}
+
+// Stop syncing when component un mounts
+componentWillUnmount() {
+  base.removeBinding(this.ref);
+}
+```
+
 # Create React Commands
 
 `yarn start`

@@ -3,15 +3,20 @@
   ul
     text-align: left
     list-style-type: none
+    padding: 1em
 
 
     li
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
       text-align: left
-      margin: 1em
+      margin: 0 0 1em
+      border: 1px solid black
+      padding: 1em
 
-      a
-        color: red
-
-    span
-      display: block
-      padding: 10px
+      input[type="text"] 
+        flex: 1 1 48%
+        margin: .2em
+        border: 1px solid #777
+        text-align: left

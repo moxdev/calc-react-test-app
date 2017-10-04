@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import sampleItems from '../sample-items.js';
 import Header from './Header';
 import ContentHeader from './ContentHeader';
 import Create from './Create';
 import Display from './Display';
+import sampleItems from '../sample-items.js';
+import base from '../base';
 
 /* eslint react/prop-types: 0 */
 
@@ -17,6 +18,19 @@ class Content extends Component {
 
     this.loadSamples = this.loadSamples.bind(this);
     this.addItem = this.addItem.bind(this);
+  }
+
+  // Sync to Firebase
+  componentWillMount() {
+    this.ref = base.syncState(`project/${this.props.match.params.pageID}`, {
+      context: this,
+      state: 'items'
+    });
+  }
+
+  // Stop syncing when component un mounts
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
   }
 
   loadSamples() {
