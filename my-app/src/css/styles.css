@@ -390,4 +390,5 @@ header .App-logo {
   margin: 0.2em;
   border: 1px solid #777;
   text-align: left;
+  text-transform: capitalize;
 }

@@ -11,9 +11,9 @@ class Display extends Component {
 
   handleChange(e, key) {
     const item = this.props.items[key];
-    // take cop of itme
-    const updateItem = { ...item, [e.target]: e.target.value };
-    console.log(updateItem);
+    // take copy of item
+    const updateItem = { ...item, [e.target.name]: e.target.value };
+    this.props.updateItem(key, updateItem);
   }
 
   renderItems(key) {
@@ -61,6 +61,7 @@ class Display extends Component {
 
 Display.propTypes = {
   loadSamples: PropTypes.func.isRequired,
+  updateItem: PropTypes.func.isRequired,
   items: PropTypes.object.isRequired
 };
 

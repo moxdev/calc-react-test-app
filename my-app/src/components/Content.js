@@ -18,6 +18,7 @@ class Content extends Component {
 
     this.loadSamples = this.loadSamples.bind(this);
     this.addItem = this.addItem.bind(this);
+    this.updateItem = this.updateItem.bind(this);
   }
 
   // Sync to Firebase
@@ -49,6 +50,12 @@ class Content extends Component {
     // ES6 same as > this.setState({ items: items });
   }
 
+  updateItem(key, updated) {
+    const items = { ...this.state.items };
+    items[key] = updated;
+    this.setState({ items });
+  }
+
   render() {
     return (
       <div className="wrapper">
@@ -57,7 +64,7 @@ class Content extends Component {
           <ContentHeader title={this.props.match.params.pageID} />
           <div className="main-wrapper">
             <Create addItem={this.addItem} />
-            <Display items={this.state.items} loadSamples={this.loadSamples} />
+            <Display items={this.state.items} loadSamples={this.loadSamples} updateItem={this.updateItem} />
           </div>
         </div>
       </div>
