@@ -43,6 +43,7 @@ class Display extends Component {
           placeholder="paid"
           onChange={e => this.handleChange(e, key)}
         />
+        <button onClick={() => this.props.deleteItem(key)}>Delete</button>
       </li>
     );
   }
@@ -51,6 +52,7 @@ class Display extends Component {
     return (
       <section className="display">
         <h1>Display</h1>
+
         <button onClick={this.props.loadSamples}>Load Sample Data</button>
 
         <ul className="list-of-items">{Object.keys(this.props.items).map(this.renderItems)}</ul>
@@ -62,6 +64,7 @@ class Display extends Component {
 Display.propTypes = {
   loadSamples: PropTypes.func.isRequired,
   updateItem: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
   items: PropTypes.object.isRequired
 };
 

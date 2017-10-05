@@ -19,6 +19,7 @@ class Content extends Component {
     this.loadSamples = this.loadSamples.bind(this);
     this.addItem = this.addItem.bind(this);
     this.updateItem = this.updateItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   // Sync to Firebase
@@ -56,6 +57,12 @@ class Content extends Component {
     this.setState({ items });
   }
 
+  removeItem(key) {
+    const items = { ...this.state.items };
+    items[key] = null; // this is for deleting from Firebase
+    this.setState({ items });
+  }
+
   render() {
     return (
       <div className="wrapper">
@@ -64,7 +71,12 @@ class Content extends Component {
           <ContentHeader title={this.props.match.params.pageID} />
           <div className="main-wrapper">
             <Create addItem={this.addItem} />
-            <Display items={this.state.items} loadSamples={this.loadSamples} updateItem={this.updateItem} />
+            <Display
+              items={this.state.items}
+              loadSamples={this.loadSamples}
+              updateItem={this.updateItem}
+              deleteItem={this.removeItem}
+            />
           </div>
         </div>
       </div>

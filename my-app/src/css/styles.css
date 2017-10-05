@@ -392,3 +392,7 @@ header .App-logo {
   text-align: left;
   text-transform: capitalize;
 }
+.display ul li button {
+  border: none;
+  text-decoration: underline;
+}

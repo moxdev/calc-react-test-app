@@ -2,6 +2,11 @@
 - in the package.json
 `"start": "NODE_PATH=src react-scripts start"`
 
+# Basic jsx
+- make a copy of the state when changing state
+  - `const variableName = {...this.state.yourStateName};`
+- dont forget to bind function to constructor
+
 # Firebase
  - ID: `bills-test-app-f06d5`
  - rebase v3 requires firebase import
@@ -134,3 +139,9 @@ YourComponent.contextTypes = {
 - refernces to DOM elements
 
 `<input type="text" ref={(input) => { textInput = input; }} />`
+
+# CSS Transitions
+[react-transition-group Docs](https://github.com/reactjs/react-transition-group/tree/v1-stable)
+- `import { CSSTransitionGroup } from 'react-transition-group'`
+- v2 is completely differnt from v1
+- 
