@@ -6,12 +6,15 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      uid: null
+      uid: null,
+      email: null,
+      password: null
     };
 
     this.signInAuthGoogle = this.signInAuthGoogle.bind(this);
     this.signInAuthGithub = this.signInAuthGithub.bind(this);
     this.signInAuthEmail = this.signInAuthEmail.bind(this);
+    this.signUpWithEmail = this.signUpWithEmail.bind(this);
   }
 
   signInAuthGoogle() {
@@ -76,21 +79,45 @@ class Login extends Component {
       });
   }
 
-  signInAuthEmail() {
-    var provider = new firebase.auth.TwitterAuthProvider();
-
-    provider.setCustomParameters({
-      display: 'popup'
-    });
+  signInAuthEmail(e) {
+    e.preventDefault();
+    const user = {
+      email: this.signInEmail.value,
+      password: this.signInPassword.value
+    };
 
     firebase
       .auth()
-      .createUserWithEmailAndPassword(/*email, password*/)
+      .signInWithEmailAndPassword(user.email, user.password)
+      .then(function(firebaseUser) {
+        console.log('success');
+      })
       .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        // ...
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+  }
+
+  signUpWithEmail(e) {
+    e.preventDefault();
+
+    const user = {
+      email: this.signUpEmail.value,
+      password: this.signUpPassword.value
+    };
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(user.email, user.password)
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
       });
   }
 
@@ -98,13 +125,21 @@ class Login extends Component {
     if (!this.state.uid) {
       return (
         <div className="login">
-          <h1>Login Please</h1>
+          <h1>Login Son I aint got allday</h1>
           <button onClick={() => this.signInAuthGithub()}>Github</button>
           <button onClick={() => this.signInAuthGoogle()}>Twitter</button>
-          <form className="signup">
-            <input type="text" />
-            <input type="text" />
-            <button onClick={() => this.signInAuthEmail()}>Email</button>
+
+          <form className="signin" onSubmit={e => this.signInAuthEmail(e)}>
+            <input ref={input => (this.signInEmail = input)} type="text" placeholder="Email" />
+            <input ref={input => (this.signInPassword = input)} type="password" placeholder="Password" />
+            <button type="submit">Sign In</button>
+          </form>
+
+          <form className="signup" onSubmit={e => this.signUpWithEmail(e)}>
+            <h3>Sign up with email here</h3>
+            <input ref={input => (this.signUpEmail = input)} type="text" placeholder="Email" />
+            <input ref={input => (this.signUpPassword = input)} type="password" placeholder="Password" />
+            <button type="submit">Sign Up</button>
           </form>
         </div>
       );
