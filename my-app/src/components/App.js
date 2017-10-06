@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 // import type { Match } from 'react-router-dom';
-import Landing from './Landing';
+// import Landing from './Landing';
+import Login from './Login';
 import Content from './Content';
 
 const FourOhFour = () => <h1>404</h1>;
@@ -10,7 +11,7 @@ const App = () => (
   <BrowserRouter>
     <div className="App">
       <Switch>
-        <Route exact path="/" component={Landing} />
+        <Route exact path="/" component={Login} />
         <Route path="/project/:pageID" component={Content} />
         <Route component={FourOhFour} />
       </Switch>

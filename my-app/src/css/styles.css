@@ -289,6 +289,15 @@ body .main-content {
   max-width: 1000px;
   margin: 0 auto;
 }
+.login {
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 30vh;
+}
+h1 {
+  text-transform: uppercase;
+}
 .landing-page-wrapper {
   text-align: center;
   max-width: 1000px;
