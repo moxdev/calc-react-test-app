@@ -1,7 +1,6 @@
-import Rebase from 're-base';
 import firebase from 'firebase';
 
-const app = firebase.initializeApp({
+const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyAA7v56oVnf0H6SiqT3TVLVNQ9l0xldePU',
   authDomain: 'bills-test-app-f06d5.firebaseapp.com',
   databaseURL: 'https://bills-test-app-f06d5.firebaseio.com',
@@ -10,6 +9,10 @@ const app = firebase.initializeApp({
   messagingSenderId: '878236368012'
 });
 
-const base = Rebase.createClass(app.database());
+export const db = firebaseApp.database();
+export const auth = firebaseApp.auth();
+export const storageKey = 'pain-login-regnipelk';
 
-export default base;
+export const isAuthenticated = () => {
+  return !!auth.currentUser || !!localStorage.getItem(storageKey);
+};

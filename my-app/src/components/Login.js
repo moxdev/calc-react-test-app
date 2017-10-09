@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import firebase from 'firebase';
+import { auth } from '../base';
 // import PropTypes from 'prop-types';
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      uid: null,
       email: null,
-      password: null
+      password: null,
+      redirectToReferrer: false
     };
 
     this.signInAuthGoogle = this.signInAuthGoogle.bind(this);
@@ -24,17 +26,18 @@ class Login extends Component {
       display: 'popup'
     });
 
-    firebase
-      .auth()
+    auth
       .signInWithPopup(provider)
       .then(function(result) {
         if (result.credential) {
           // This gives you a Facebook Access Token. You can use it to access the Facebook API.
           var token = result.credential.accessToken;
           console.log('Success');
+          console.log(token);
         }
         // The signed-in user info.
         var user = result.user;
+        console.log(user);
       })
       .catch(function(error) {
         // Handle Errors here.
@@ -44,7 +47,11 @@ class Login extends Component {
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-        console.log('Error');
+        console.log('Google Auth Error');
+        console.log(errorCode);
+        console.log(errorMessage);
+        console.log(email);
+        console.log(credential);
       });
   }
 
@@ -55,17 +62,18 @@ class Login extends Component {
       display: 'popup'
     });
 
-    firebase
-      .auth()
+    auth
       .signInWithPopup(provider)
       .then(function(result) {
         if (result.credential) {
           // This gives you a Facebook Access Token. You can use it to access the Facebook API.
           var token = result.credential.accessToken;
           console.log('Success');
+          console.log(token);
         }
         // The signed-in user info.
         var user = result.user;
+        console.log(user);
       })
       .catch(function(error) {
         // Handle Errors here.
@@ -75,7 +83,11 @@ class Login extends Component {
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-        console.log('Error');
+        console.log('Github Auth Error');
+        console.log(errorCode);
+        console.log(errorMessage);
+        console.log(email);
+        console.log(credential);
       });
   }
 
@@ -86,16 +98,24 @@ class Login extends Component {
       password: this.signInPassword.value
     };
 
-    firebase
-      .auth()
+    auth
       .signInWithEmailAndPassword(user.email, user.password)
-      .then(function(firebaseUser) {
-        console.log('success');
+      .then(() => {
+        this.setState({
+          email: user.email,
+          password: user.password,
+          redirectToReferrer: true
+        });
+        console.log('Email Sign In Success');
+        console.log(this.state.email);
+        console.log(this.state.password);
+        console.log(this.state.redirectToReferrer);
       })
       .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
+        console.log('Email Sign In Error');
         console.log(errorCode);
         console.log(errorMessage);
       });
@@ -109,41 +129,57 @@ class Login extends Component {
       password: this.signUpPassword.value
     };
 
-    firebase
-      .auth()
+    auth
       .createUserWithEmailAndPassword(user.email, user.password)
+      .then(function(firebaseUser) {
+        this.setState({
+          email: user.email,
+          password: user.password,
+          redirectToReferrer: true
+        });
+        console.log('Email Sign Up Success');
+        console.log(firebaseUser);
+        console.log(this.state.email);
+        console.log(this.state.password);
+      })
       .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
+        console.log('Email Sign Up Error');
         console.log(errorCode);
         console.log(errorMessage);
       });
   }
 
   render() {
-    if (!this.state.uid) {
-      return (
-        <div className="login">
-          <h1>Login Son I aint got allday</h1>
-          <button onClick={() => this.signInAuthGithub()}>Github</button>
-          <button onClick={() => this.signInAuthGoogle()}>Twitter</button>
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
+    const { redirectToReferrer } = this.state;
 
-          <form className="signin" onSubmit={e => this.signInAuthEmail(e)}>
-            <input ref={input => (this.signInEmail = input)} type="text" placeholder="Email" />
-            <input ref={input => (this.signInPassword = input)} type="password" placeholder="Password" />
-            <button type="submit">Sign In</button>
-          </form>
-
-          <form className="signup" onSubmit={e => this.signUpWithEmail(e)}>
-            <h3>Sign up with email here</h3>
-            <input ref={input => (this.signUpEmail = input)} type="text" placeholder="Email" />
-            <input ref={input => (this.signUpPassword = input)} type="password" placeholder="Password" />
-            <button type="submit">Sign Up</button>
-          </form>
-        </div>
-      );
+    if (redirectToReferrer) {
+      return <Redirect to={from} />;
     }
+
+    return (
+      <div className="login">
+        <h1>Login Son I aint got allday</h1>
+        <button onClick={() => this.signInAuthGithub()}>Github</button>
+        <button onClick={() => this.signInAuthGoogle()}>Twitter</button>
+
+        <form className="signin" onSubmit={e => this.signInAuthEmail(e)}>
+          <input ref={input => (this.signInEmail = input)} type="text" placeholder="Email" />
+          <input ref={input => (this.signInPassword = input)} type="password" placeholder="Password" />
+          <button type="submit">Sign In</button>
+        </form>
+
+        <form className="signup" onSubmit={e => this.signUpWithEmail(e)}>
+          <h3>Sign up with email here</h3>
+          <input ref={input => (this.signUpEmail = input)} type="text" placeholder="Email" />
+          <input ref={input => (this.signUpPassword = input)} type="password" placeholder="Password" />
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    );
   }
 }
 
