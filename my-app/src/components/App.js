@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { auth } from '../base';
 import { storageKey } from '../base';
@@ -13,7 +13,8 @@ import Login from './Login';
 
 class App extends Component {
   state = {
-    uid: null
+    uid: null,
+    redirectToReferrer: false
   };
 
   componentDidMount() {
@@ -30,7 +31,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter state={this.state}>
         <div className="App">
           <Route exact path="/" component={Landing} />
           <Route path="/login" component={Login} />
