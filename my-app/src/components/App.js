@@ -6,14 +6,14 @@ import { auth } from '../base';
 import { storageKey } from '../base';
 import { isAuthenticated } from '../base';
 
+import Landing from './Landing';
 import User from './User';
 import Login from './Login';
-import Content from './Content';
+// import Content from './Content';
 
 class App extends Component {
   state = {
-    uid: null,
-    user: null
+    uid: null
   };
 
   componentDidMount() {
@@ -28,38 +28,30 @@ class App extends Component {
     });
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   render() {
     return (
       <BrowserRouter>
         <div className="App">
-          <Route exact path="/" component={User} />
+          <Route exact path="/" component={Landing} />
           <Route path="/login" component={Login} />
-          <MatchWhenAuthorized path="/project" component={Content} />
-          {/* <Route component={FourOhFour} /> */}
-          {/* <Route path="/project/:pageID" component={Content} /> */}
+          <MatchWhenAuthorized path="/project" component={User} />
         </div>
       </BrowserRouter>
     );
   }
 }
 
-// const FourOhFour = () => <h1>404</h1>;
-
 const MatchWhenAuthorized = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={renderProps =>
+    render={props =>
       isAuthenticated() ? (
-        <Component {...renderProps} />
+        <Component {...props} />
       ) : (
         <Redirect
           to={{
             pathname: '/login',
-            state: { from: renderProps.location }
+            state: { from: props.location }
           }}
         />
       )}
@@ -69,5 +61,14 @@ const MatchWhenAuthorized = ({ component: Component, ...rest }) => (
 export default App;
 
 MatchWhenAuthorized.propTypes = {
-  component: PropTypes.any
+  component: PropTypes.any,
+  location: PropTypes.any
 };
+
+// const FourOhFour = () => <h1>404</h1>;
+{
+  /* <Route component={FourOhFour} /> */
+}
+{
+  /* <Route path="/project/:pageID" component={Content} /> */
+}

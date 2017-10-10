@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import firebase from 'firebase';
 import { auth } from '../base';
-// import PropTypes from 'prop-types';
 
 class Login extends Component {
   constructor(props) {
@@ -32,12 +33,16 @@ class Login extends Component {
         if (result.credential) {
           // This gives you a Facebook Access Token. You can use it to access the Facebook API.
           var token = result.credential.accessToken;
+          /* eslint-disable */
           console.log('Success');
           console.log(token);
+          /* eslint-enable */
         }
         // The signed-in user info.
         var user = result.user;
+        /* eslint-disable */
         console.log(user);
+        /* eslint-enable */
       })
       .catch(function(error) {
         // Handle Errors here.
@@ -47,11 +52,13 @@ class Login extends Component {
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
+        /* eslint-disable */
         console.log('Google Auth Error');
         console.log(errorCode);
         console.log(errorMessage);
         console.log(email);
         console.log(credential);
+        /* eslint-enable */
       });
   }
 
@@ -68,12 +75,16 @@ class Login extends Component {
         if (result.credential) {
           // This gives you a Facebook Access Token. You can use it to access the Facebook API.
           var token = result.credential.accessToken;
+          /* eslint-disable */
           console.log('Success');
           console.log(token);
+          /* eslint-enable */
         }
         // The signed-in user info.
         var user = result.user;
+        /* eslint-disable */
         console.log(user);
+        /* eslint-enable */
       })
       .catch(function(error) {
         // Handle Errors here.
@@ -83,11 +94,13 @@ class Login extends Component {
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
+        /* eslint-disable */
         console.log('Github Auth Error');
         console.log(errorCode);
         console.log(errorMessage);
         console.log(email);
         console.log(credential);
+        /* eslint-enable */
       });
   }
 
@@ -106,18 +119,22 @@ class Login extends Component {
           password: user.password,
           redirectToReferrer: true
         });
+        /* eslint-disable */
         console.log('Email Sign In Success');
         console.log(this.state.email);
         console.log(this.state.password);
         console.log(this.state.redirectToReferrer);
+        /* eslint-enable */
       })
       .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
+        /* eslint-disable */
         console.log('Email Sign In Error');
         console.log(errorCode);
         console.log(errorMessage);
+        /* eslint-enable */
       });
   }
 
@@ -137,18 +154,22 @@ class Login extends Component {
           password: user.password,
           redirectToReferrer: true
         });
+        /* eslint-disable */
         console.log('Email Sign Up Success');
         console.log(firebaseUser);
         console.log(this.state.email);
         console.log(this.state.password);
+        /* eslint-enable */
       })
       .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
+        /* eslint-disable */
         console.log('Email Sign Up Error');
         console.log(errorCode);
         console.log(errorMessage);
+        /* eslint-enable */
       });
   }
 
@@ -184,3 +205,7 @@ class Login extends Component {
 }
 
 export default Login;
+
+Login.propTypes = {
+  location: PropTypes.any
+};
