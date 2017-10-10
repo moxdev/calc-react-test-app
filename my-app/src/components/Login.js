@@ -161,7 +161,7 @@ class Login extends Component {
     }
 
     return (
-      <div className="login">
+      <section className="login">
         <h1>Login Son I aint got allday</h1>
         <button onClick={() => this.signInAuthGithub()}>Github</button>
         <button onClick={() => this.signInAuthGoogle()}>Twitter</button>
@@ -178,7 +178,7 @@ class Login extends Component {
           <input ref={input => (this.signUpPassword = input)} type="password" placeholder="Password" />
           <button type="submit">Sign Up</button>
         </form>
-      </div>
+      </section>
     );
   }
 }

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+
 import { auth } from '../base';
 import { storageKey } from '../base';
 import { isAuthenticated } from '../base';
 
+import User from './User';
 import Login from './Login';
 import Content from './Content';
-import User from './User';
 
 class App extends Component {
   state = {
@@ -35,20 +36,18 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Switch>
-            <Route exact path="/" component={User} />
-            <Route path="/login" component={Login} />
-            <Route component={FourOhFour} />
-            <MatchWhenAuthorized path="/project" component={Content} />
-            {/* <Route path="/project/:pageID" component={Content} /> */}
-          </Switch>
+          <Route exact path="/" component={User} />
+          <Route path="/login" component={Login} />
+          <MatchWhenAuthorized path="/project" component={Content} />
+          {/* <Route component={FourOhFour} /> */}
+          {/* <Route path="/project/:pageID" component={Content} /> */}
         </div>
       </BrowserRouter>
     );
   }
 }
 
-const FourOhFour = () => <h1>404</h1>;
+// const FourOhFour = () => <h1>404</h1>;
 
 const MatchWhenAuthorized = ({ component: Component, ...rest }) => (
   <Route

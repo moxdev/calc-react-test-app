@@ -1,49 +1,54 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { React, Component } from 'react';
+import { Redirect } from 'react-router-dom';
+
+import firebase from 'firebase';
+import { auth } from '../base';
 
 class Landing extends Component {
-  constructor() {
-    super();
+  state = {
+    email: null,
+    password: null,
+    redirectToReferrer: false
+  };
 
-    this.goToProject = this.goToProject.bind(this);
-  }
-
-  goToProject(e) {
+  signUpWithEmail(e) {
     e.preventDefault();
 
-    const project = {
-      title: this.textInput.value
+    const user = {
+      email: this.signUpEmail.value,
+      password: this.signUpPassword.value
     };
 
-    if (project.title.length === 0) {
-      alert('Please name your project before moving forward');
-    } else this.context.router.history.push(`/project/${project.title}`);
+    auth
+      .createUserWithEmailAndPassword(user.email, user.password)
+      .then(function(firebaseUser) {
+        this.setState({
+          email: user.email,
+          password: user.password,
+          redirectToReferrer: true
+        });
+        /* eslint-disable */
+        console.log('Email Sign Up Success');
+        console.log(firebaseUser);
+        console.log(this.state.email);
+        console.log(this.state.password);
+      })
+      /*eslint-enable*/
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        /* eslint-disable */
+        console.log('Email Sign Up Error');
+        console.log(errorCode);
+        console.log(errorMessage);
+        /*eslint-enable*/
+      });
   }
 
   render() {
-    return (
-      <div className="landing-page-wrapper">
-        <h1>Name your project</h1>
-        <form onSubmit={this.goToProject}>
-          <input
-            type="text"
-            placeholder="My Project Name"
-            ref={input => {
-              this.textInput = input;
-            }}
-          />
-
-          <button type="submit">Next &raquo;</button>
-        </form>
-      </div>
-    );
+    return <h1>Landing Page</h1>;
   }
 }
-
-Landing.contextTypes = {
-  router: PropTypes.shape({
-    history: PropTypes.object.isRequired
-  })
-};
 
 export default Landing;
