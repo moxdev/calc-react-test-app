@@ -13,8 +13,7 @@ import Login from './Login';
 
 class App extends Component {
   state = {
-    uid: null,
-    redirectToReferrer: false
+    uid: null
   };
 
   componentDidMount() {
@@ -31,7 +30,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter state={this.state}>
+      <BrowserRouter>
         <div className="App">
           <Route exact path="/" component={Landing} />
           <Route path="/login" component={Login} />
@@ -45,14 +44,14 @@ class App extends Component {
 const MatchWhenAuthorized = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
+    render={renderProps =>
       isAuthenticated() ? (
-        <Component {...props} />
+        <Component {...renderProps} />
       ) : (
         <Redirect
           to={{
             pathname: '/login',
-            state: { from: props.location }
+            state: { from: renderProps.location }
           }}
         />
       )}
