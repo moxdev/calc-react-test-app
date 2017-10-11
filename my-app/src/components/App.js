@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-import { auth } from '../base';
-import { storageKey } from '../base';
-import { isAuthenticated } from '../base';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Landing from './Landing';
 import User from './User';
@@ -16,54 +13,22 @@ class App extends Component {
     uid: null
   };
 
-  componentDidMount() {
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        window.localStorage.setItem(storageKey, user.uid);
-        this.setState({ uid: user.uid });
-      } else {
-        window.localStorage.removeItem(storageKey);
-        this.setState({ uid: null });
-      }
-    });
-  }
-
   render() {
     return (
-      <BrowserRouter>
-        <div className="App">
-          <Route exact path="/" component={Landing} />
-          <Route path="/login" component={Login} />
-          <MatchWhenAuthorized path="/project" component={User} />
-        </div>
-      </BrowserRouter>
+      <MuiThemeProvider>
+        <BrowserRouter>
+          <div className="App">
+            <Route exact path="/" component={Landing} />
+            <Route path="/login" component={Login} />
+            <Route path="/project" component={User} />
+          </div>
+        </BrowserRouter>
+      </MuiThemeProvider>
     );
   }
 }
 
-const MatchWhenAuthorized = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={renderProps =>
-      isAuthenticated() ? (
-        <Component {...renderProps} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: renderProps.location }
-          }}
-        />
-      )}
-  />
-);
-
 export default App;
-
-MatchWhenAuthorized.propTypes = {
-  component: PropTypes.any,
-  location: PropTypes.any
-};
 
 // const FourOhFour = () => <h1>404</h1>;
 {

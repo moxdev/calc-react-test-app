@@ -22,7 +22,7 @@
     "eslint": "^4.7.2",
     "eslint-plugin-react": "^7.4.0",
     "firebase": "^4.5.0",
-    "material-ui": "^0.19.4",
+    "material-ui": "0.19.4",
     "mocker-data-generator": "^2.2.0",
     "prop-types": "^15.6.0",
     "re-base": "^3.0.4",
