@@ -1,8 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './css/styles.css';
-import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import App from './components/App';
+import Login from './components/Login';
+import User from './components/User';
+
+const Root = () => {
+  return (
+    <MuiThemeProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Route exact path="/" component={App} />
+          <Route path="/login" component={Login} />
+          <Route path="/dashboard" component={User} />
+        </div>
+      </BrowserRouter>
+    </MuiThemeProvider>
+  );
+};
+
+ReactDOM.render(<Root />, document.getElementById('root'));
 registerServiceWorker();
+
+// const FourOhFour = () => <h1>404</h1>;
+{
+  /* <Route component={FourOhFour} /> */
+}
+{
+  /* <Route path="/project/:pageID" component={Content} /> */
+}

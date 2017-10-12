@@ -273,8 +273,6 @@ body input[type="password"],
 body input[type="submit"] {
   display: block;
   width: 100%;
-  text-align: center;
-  text-transform: uppercase;
   font-weight: 700;
   border: 1px solid #333;
   margin: 1em 0;
@@ -302,6 +300,7 @@ body .main-content {
 .login form {
   max-width: 400px;
   margin: 0 auto;
+  text-align: left;
 }
 .login .signup {
   margin-top: 3em;
