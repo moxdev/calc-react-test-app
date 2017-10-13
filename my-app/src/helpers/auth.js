@@ -1,4 +1,4 @@
-import { firebaseAuth, googleProvider, twitterProvider } from '../config/constants';
+import { firebaseAuthKey, appTokenKey, firebaseAuth, googleProvider, twitterProvider } from '../config/constants';
 
 export function loginWithGoogle() {
   return firebaseAuth().signInWithRedirect(googleProvider);

@@ -14,9 +14,9 @@ const Root = () => {
     <MuiThemeProvider>
       <BrowserRouter>
         <div className="App">
-          <Route exact path="/" component={App} />
+          <Route exact path="/" component={Login} />
           <Route path="/login" component={Login} />
-          <Route path="/dashboard" component={User} />
+          <Route path="/dashboard" component={App} />
         </div>
       </BrowserRouter>
     </MuiThemeProvider>

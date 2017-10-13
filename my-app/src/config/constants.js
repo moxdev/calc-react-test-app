@@ -16,3 +16,6 @@ export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 export const ref = firebase.database().ref();
 export const firebaseAuth = firebase.auth;
+
+export const firebaseAuthKey = 'firebaseAuthInProgress';
+export const appTokenKey = 'appToken';

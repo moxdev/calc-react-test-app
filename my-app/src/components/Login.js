@@ -36,7 +36,7 @@ class Login extends Component {
           }
           // The signed-in user info.
           let user = result.user;
-          console.log('user:', JSON.stringify(user));
+          console.log(user.uid);
         }
       })
       .catch(function(error) {
@@ -62,20 +62,15 @@ class Login extends Component {
 
     firebaseAuth().onAuthStateChanged(user => {
       if (user) {
-        console.log('User signed in: ', JSON.stringify(user));
+        console.log('onAuthStateChanged user.uid = ' + user.uid);
 
-        localStorage.removeItem(firebaseAuthKey);
-
-        // here you could authenticate with you web server to get the
-        // application specific token so that you do not have to
-        // authenticate with firebase every time a user logs in
+        // localStorage.removeItem(firebaseAuthKey);
         localStorage.setItem(appTokenKey, user.uid);
 
-        this.props.updateUser(user);
-        console.log(user.uid);
-
-        // store the token
         this.props.history.push('/dashboard');
+      } else {
+        console.log('onAuthStateChanged = No User Signed In');
+        this.props.history.push('/login');
       }
     });
   }
@@ -97,20 +92,19 @@ class Login extends Component {
       password: this.signInPassword.getValue()
     };
 
-    console.log(user.email, user.password);
-
     firebaseAuth()
       .signInWithEmailAndPassword(user.email, user.password)
       .then(function(firebaseUser) {
-        console.log('success');
-        console.log(firebaseUser);
+        console.log('Signed In: Sucess');
+        console.log('firebaseUser.uid = ' + firebaseUser.uid);
+        this.props.history.push('/dashboard');
       })
       .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
+        console.log('Error Code: ' + errorCode);
+        console.log('Error Message: ' + errorMessage);
       });
   };
 
