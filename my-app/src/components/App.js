@@ -6,15 +6,19 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from './Header';
 
 class App extends Component {
-  state = {
-    uid: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      uid: null
+    };
+    this.updateUser = this.updateUser.bind(this);
+  }
 
-  updateUser = user => {
+  updateUser(user) {
     this.setState({
       uid: user.uid
     });
-  };
+  }
 
   render() {
     return (
