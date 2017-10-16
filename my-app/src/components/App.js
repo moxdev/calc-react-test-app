@@ -8,13 +8,14 @@ import { firebaseAuth } from '../config/constants';
 import { logout } from '../helpers/auth.js';
 
 import Header from './Header';
+import Dashboard from './Dashboard';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: null
+      user: {}
     };
   }
 
@@ -35,8 +36,8 @@ class App extends Component {
         this.setState({ user: userDeets });
       } else {
         console.log('No User');
+        this.props.history.push('/login');
       }
-      console.log(this.state.user);
     });
   }
 
@@ -64,7 +65,7 @@ class App extends Component {
       <div className="main-container">
         <Header handleLogout={this.handleLogout} />
         <div className="main-content">
-          <h1>My Dashboard</h1>
+          <Dashboard avatar={this.state.user.email} userName={this.state.user.email} />
         </div>
       </div>
     );
