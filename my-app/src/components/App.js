@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import base from '../config/base';
 import { appTokenKey } from '../config/constants';
 import { firebaseAuthKey } from '../config/constants';
 import { firebaseAuth } from '../config/constants';
@@ -13,27 +14,34 @@ class App extends Component {
     super(props);
 
     this.state = {
-      uid: null,
-      user: null,
-      displayName: null,
-      photoURL: null
+      user: null
     };
+  }
 
-    // this.handleLogout = this.handleLogout.bind(this);
+  componentWillMount() {
+    this.userRef = base.syncState('user', {
+      context: this,
+      state: 'user'
+    });
   }
 
   componentDidMount() {
-    firebaseAuth().onAuthStateChanged(user => {
+    firebaseAuth.onAuthStateChanged(user => {
       if (user) {
-        // window.localStorage.setItem(storageKey, user.uid);
-        this.setState({
-          user: user,
-          uid: user.uid,
-          displayName: user.displayName,
-          photoURL: user.photoURL
-        });
+        const userDeets = { ...this.state.user };
+        userDeets.uid = user.uid;
+        userDeets.displayName = user.displayName;
+        userDeets.email = user.email;
+        this.setState({ user: userDeets });
+      } else {
+        console.log('No User');
       }
+      console.log(this.state.user);
     });
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.userRef);
   }
 
   handleLogout = () => {
@@ -41,13 +49,6 @@ class App extends Component {
       function() {
         localStorage.removeItem(appTokenKey);
         localStorage.removeItem(firebaseAuthKey);
-
-        this.setState({
-          user: null,
-          uid: null,
-          displayName: null,
-          photoURL: null
-        });
 
         console.log('Signed Out');
         console.log(this.state);
@@ -71,7 +72,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  history: PropTypes.routes
+  history: PropTypes.any
 };
 
 export default App;

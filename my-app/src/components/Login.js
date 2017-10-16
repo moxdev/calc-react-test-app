@@ -4,8 +4,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import FontIcon from 'material-ui/FontIcon';
 
-import { loginWithGoogle, loginWithTwitter } from '../helpers/auth';
+import base from '../config/base';
 import { firebaseAuth } from '../config/constants';
+// import { loginWithGoogle, loginWithTwitter } from '../helpers/auth';
 
 const firebaseAuthKey = 'firebaseAuthInProgress';
 const appTokenKey = 'appToken';
@@ -24,33 +25,6 @@ class Login extends Component {
   };
 
   componentWillMount() {
-    firebaseAuth()
-      .getRedirectResult()
-      .then(function(result) {
-        if (result.user) {
-          console.log('GoogleLogin Redirect result');
-          if (result.credential) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            let token = result.credential.accessToken;
-            // ...
-          }
-          // The signed-in user info.
-          let user = result.user;
-          console.log(user.uid);
-        }
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-        alert(error);
-      });
-
     /**
     * We have appToken relevant for our backend API
     */
@@ -60,7 +34,7 @@ class Login extends Component {
       return;
     }
 
-    firebaseAuth().onAuthStateChanged(user => {
+    firebaseAuth.onAuthStateChanged(user => {
       if (user) {
         console.log('onAuthStateChanged user.uid = ' + user.uid);
 
@@ -92,7 +66,7 @@ class Login extends Component {
       password: this.signInPassword.getValue()
     };
 
-    firebaseAuth()
+    firebaseAuth
       .signInWithEmailAndPassword(user.email, user.password)
       .then(function(firebaseUser) {
         console.log('Signed In: Sucess');
