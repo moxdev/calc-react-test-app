@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { appTokenKey } from '../config/constants';
 import { firebaseAuthKey } from '../config/constants';
@@ -71,5 +69,9 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  history: PropTypes.routes
+};
 
 export default App;
