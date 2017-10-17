@@ -31,8 +31,10 @@ class App extends Component {
       if (user) {
         const userDeets = { ...this.state.user };
         userDeets.uid = user.uid;
-        userDeets.displayName = user.displayName;
         userDeets.email = user.email;
+        if (userDeets.displayName) {
+          userDeets.displayName = user.displayName;
+        }
         this.setState({ user: userDeets });
       } else {
         console.log('No User');
@@ -60,12 +62,30 @@ class App extends Component {
     );
   };
 
+  updateUserProfile = updatedUserInfo => {
+    const user = { ...this.state.user };
+    if (updatedUserInfo.displayName) {
+      user.displayName = updatedUserInfo.displayName;
+    }
+    if (updatedUserInfo.email) {
+      user.email = updatedUserInfo.email;
+    }
+
+    this.setState({ user });
+    console.log('State Updated');
+  };
+
   render() {
     return (
       <div className="main-container">
         <Header handleLogout={this.handleLogout} />
         <div className="main-content">
-          <Dashboard avatar={this.state.user.email} userName={this.state.user.email} />
+          <Dashboard
+            avatar={this.state.user.email}
+            userName={this.state.user.displayName}
+            email={this.state.user.email}
+            updateUserProfile={this.updateUserProfile}
+          />
         </div>
       </div>
     );
