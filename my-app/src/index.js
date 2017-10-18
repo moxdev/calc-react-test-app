@@ -7,6 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 import App from './components/App';
 import Login from './components/Login';
+import EditProfile from './components/EditProfile';
 
 const FourOhFour = () => <h1>404</h1>;
 
@@ -19,6 +20,7 @@ const Root = () => {
             <Route exact path="/" component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/dashboard" component={App} />
+            <Route path="/edit/:id" component={EditProfile} />
             <Route component={FourOhFour} />
           </Switch>
         </div>
