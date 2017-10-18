@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+// import { Redirect } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import FontIcon from 'material-ui/FontIcon';
 
-import base from '../config/base';
-import { firebaseAuth } from '../config/constants';
+import { firebaseAuth, appTokenKey } from '../config/constants';
 // import { loginWithGoogle, loginWithTwitter } from '../helpers/auth';
-
-const firebaseAuthKey = 'firebaseAuthInProgress';
-const appTokenKey = 'appToken';
 
 const styleForm = {
   width: '400px'
@@ -30,20 +27,23 @@ class Login extends Component {
     */
 
     if (localStorage.getItem(appTokenKey)) {
-      this.props.history.push('/dashboard');
-      return;
+      if (localStorage.getItem('userName') != null) {
+        const name = localStorage.getItem('userName');
+        this.props.history.push(`/dashboard/${name}`);
+      } else {
+        this.props.history.push('/dashboard/null');
+      }
     }
 
     firebaseAuth.onAuthStateChanged(user => {
       if (user) {
-        console.log('onAuthStateChanged user.uid = ' + user.uid);
-
-        // localStorage.removeItem(firebaseAuthKey);
         localStorage.setItem(appTokenKey, user.uid);
+        localStorage.setItem('userName', user.displayName);
+        localStorage.setItem('userEmail', user.email);
 
-        this.props.history.push('/dashboard');
+        const name = localStorage.getItem('userName');
+        this.props.history.push(`/dashboard/${name}`);
       } else {
-        console.log('onAuthStateChanged = No User Signed In');
         this.props.history.push('/login');
       }
     });
@@ -61,24 +61,25 @@ class Login extends Component {
 
   signInAuthEmail = e => {
     e.preventDefault();
+
     const user = {
       email: this.signInEmail.getValue(),
       password: this.signInPassword.getValue()
     };
 
+    const name = localStorage.getItem('userName');
+
     firebaseAuth
       .signInWithEmailAndPassword(user.email, user.password)
-      .then(function(firebaseUser) {
-        console.log('Signed In: Sucess');
-        console.log('firebaseUser.uid = ' + firebaseUser.uid);
-        this.props.history.push('/dashboard');
+      .then(function() {
+        if (name != null) {
+          this.props.history.push(`/dashboard/${name}`);
+        } else {
+          this.props.history.push('/login');
+        }
       })
       .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log('Error Code: ' + errorCode);
-        console.log('Error Message: ' + errorMessage);
+        console.log('We got an erro son:' + error);
       });
   };
 
@@ -135,3 +136,7 @@ class Login extends Component {
 }
 
 export default Login;
+
+Login.propTypes = {
+  history: PropTypes.any
+};

@@ -5,18 +5,21 @@ import PropTypes from 'prop-types';
 
 class Dashboard extends Component {
   render() {
+    const userName = localStorage.getItem('userName');
+    const userEmail = localStorage.getItem('userEmail');
+
     return (
       <div className="dashboard">
         <div className="dash-profile">
-          <div className="dash-user">Logged in as: {this.props.email}</div>
+          <div className="dash-user">Logged in as: {userEmail}</div>
           <div className="dash-edit">
-            <Gravatar email={this.props.avatar} size={80} />
-            <Link to={`/edit/${this.props.userName}`} className="edit-profle-btn">
-              Edit
+            <Gravatar email={userEmail} size={80} />
+            <Link to={`/edit/${userName}`} className="edit-profle-btn">
+              Edit Profile
             </Link>
           </div>
         </div>
-        <h1>{this.props.userName}&apos;</h1>
+        <h1>{userName}</h1>
         <h2>Dashboard</h2>
       </div>
     );

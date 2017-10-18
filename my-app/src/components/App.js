@@ -9,6 +9,7 @@ import { logout } from '../helpers/auth.js';
 
 import Header from './Header';
 import Dashboard from './Dashboard';
+import Content from './Content';
 
 class App extends Component {
   constructor(props) {
@@ -37,7 +38,6 @@ class App extends Component {
         }
         this.setState({ user: userDeets });
       } else {
-        console.log('No User');
         this.props.history.push('/login');
       }
     });
@@ -52,10 +52,6 @@ class App extends Component {
       function() {
         localStorage.removeItem(appTokenKey);
         localStorage.removeItem(firebaseAuthKey);
-
-        console.log('Signed Out');
-        console.log(this.state);
-        console.log('user signed out from firebase');
 
         this.props.history.push('/login');
       }.bind(this)
@@ -72,7 +68,6 @@ class App extends Component {
     }
 
     this.setState({ user });
-    console.log('State Updated');
   };
 
   render() {
@@ -86,6 +81,7 @@ class App extends Component {
             email={this.state.user.email}
             updateUserProfile={this.updateUserProfile}
           />
+          <Content />
         </div>
       </div>
     );

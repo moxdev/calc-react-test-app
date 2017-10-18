@@ -66,9 +66,7 @@ class Content extends Component {
   render() {
     return (
       <div className="wrapper">
-        <Header />
         <div className="main-content">
-          <ContentHeader title={this.props.match.params.pageID} />
           <div className="main-wrapper">
             <Create addItem={this.addItem} />
             <Display

@@ -288,6 +288,9 @@ body .main-content {
   max-width: 1000px;
   margin: 0 auto;
 }
+body .main-content label {
+  text-align: left;
+}
 .login {
   text-align: center;
   max-width: 1000px;
@@ -377,4 +380,17 @@ header .App-logo {
 .dash-profile .dash-edit img {
   display: block;
   margin-left: auto;
+}
+.edit-profile {
+  text-align: center;
+}
+.edit-profile form div {
+  text-align: left;
+}
+.edit-profile .save-edit-btn {
+  margin-top: 1em;
+}
+.edit-profile .back-to-profile-link {
+  display: block;
+  padding-top: 1em;
 }

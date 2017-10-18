@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './css/styles.css';
 import registerServiceWorker from './registerServiceWorker';
@@ -19,7 +19,7 @@ const Root = () => {
           <Switch>
             <Route exact path="/" component={Login} />
             <Route path="/login" component={Login} />
-            <Route path="/dashboard" component={App} />
+            <Route path="/dashboard/:id" component={App} />
             <Route path="/edit/:id" component={EditProfile} />
             <Route component={FourOhFour} />
           </Switch>
@@ -31,10 +31,3 @@ const Root = () => {
 
 ReactDOM.render(<Root />, document.getElementById('root'));
 registerServiceWorker();
-
-{
-  /* <Route component={FourOhFour} /> */
-}
-{
-  /* <Route path="/project/:pageID" component={Content} /> */
-}

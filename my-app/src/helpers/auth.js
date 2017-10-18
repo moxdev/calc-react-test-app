@@ -1,5 +1,4 @@
-import { base } from '../config/base';
-import { firebaseAuth, firebaseAuthKey, appTokenKey } from '../config/constants';
+import { firebaseAuth } from '../config/constants';
 
 // const googleProvider = new firebaseAuth.googpleProvider();
 // const twitterProvider = new firebaseAuth.googpleProvider();
