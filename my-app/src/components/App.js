@@ -7,16 +7,19 @@ import { firebaseAuthKey } from '../config/constants';
 import { firebaseAuth } from '../config/constants';
 import { logout } from '../helpers/auth.js';
 
+import sampleItems from '../sample-items';
 import Header from './Header';
 import Dashboard from './Dashboard';
-import Content from './Content';
+import Create from './Create';
+import Display from './Display';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: {}
+      user: {},
+      items: {}
     };
   }
 
@@ -24,6 +27,10 @@ class App extends Component {
     this.userRef = base.syncState('user', {
       context: this,
       state: 'user'
+    });
+    this.itemsRef = base.syncState('items', {
+      context: this,
+      state: 'items'
     });
   }
 
@@ -45,6 +52,7 @@ class App extends Component {
 
   componentWillUnmount() {
     base.removeBinding(this.userRef);
+    base.removeBinding(this.itemsRef);
   }
 
   handleLogout = () => {
@@ -70,6 +78,34 @@ class App extends Component {
     this.setState({ user });
   };
 
+  loadSamples = () => {
+    this.setState({
+      items: sampleItems
+    });
+  };
+
+  addItem = item => {
+    const items = { ...this.state.newItems };
+    const timestamp = Date.now();
+
+    items[`bill-${timestamp}`] = item;
+
+    this.setState({ items });
+    // ES6 same as > this.setState({ items: items });
+  };
+
+  updateItem = (key, updated) => {
+    const items = { ...this.state.items };
+    items[key] = updated;
+    this.setState({ items });
+  };
+
+  removeItem = key => {
+    const items = { ...this.state.items };
+    items[key] = null; // this is for deleting from Firebase
+    this.setState({ items });
+  };
+
   render() {
     return (
       <div className="main-container">
@@ -81,7 +117,15 @@ class App extends Component {
             email={this.state.user.email}
             updateUserProfile={this.updateUserProfile}
           />
-          <Content />
+          <div className="display-wrapper">
+            <Create addItem={this.addItem} />
+            <Display
+              items={this.state.items}
+              loadSamples={this.loadSamples}
+              updateItem={this.updateItem}
+              deleteItem={this.removeItem}
+            />
+          </div>
         </div>
       </div>
     );

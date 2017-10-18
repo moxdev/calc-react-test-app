@@ -67,7 +67,7 @@ class Content extends Component {
     return (
       <div className="wrapper">
         <div className="main-content">
-          <div className="main-wrapper">
+          <div className="content-wrapper">
             <Create addItem={this.addItem} />
             <Display
               items={this.state.items}

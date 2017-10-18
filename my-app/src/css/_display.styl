@@ -1,27 +1,37 @@
-.display
+.display-wrapper
+  display: flex
+
+  .create
+    flex: 1 1 35%
+
+    form 
+      div
+        text-align: left
+
+  .display
+    flex: 1 1 65%
  
-  ul
-    text-align: left
-    list-style-type: none
-    padding: 1em
-
-
-    li
-      display: flex
-      flex-wrap: wrap
-      justify-content: space-between
+    ul
       text-align: left
-      margin: 0 0 1em
-      border: 1px solid black
+      list-style-type: none
       padding: 1em
 
-      input[type="text"] 
-        flex: 1 1 48%
-        margin: .2em
-        border: 1px solid #777
+      li
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
         text-align: left
-        text-transform: capitalize
+        margin: 0 0 1em
+        border: 1px solid black
+        padding: 1em
 
-      button
-        border: none 
-        text-decoration: underline
+        input[type="text"] 
+          flex: 1 1 48%
+          margin: .2em
+          border: 1px solid #777
+          text-align: left
+          text-transform: capitalize
+
+        button
+          border: none 
+          text-decoration: underline
