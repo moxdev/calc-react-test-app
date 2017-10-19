@@ -118,7 +118,7 @@ class App extends Component {
             updateUserProfile={this.updateUserProfile}
           />
           <div className="display-wrapper">
-            <Create addItem={this.addItem} />
+            <Create items={this.state.items} addItem={this.addItem} />
             <Display
               items={this.state.items}
               loadSamples={this.loadSamples}

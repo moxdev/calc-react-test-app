@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 class Create extends Component {
   createItem(e) {
@@ -24,21 +26,27 @@ class Create extends Component {
       <section className="create">
         <h1>Create</h1>
         <form ref={input => (this.createItemsForm = input)} onSubmit={e => this.createItem(e)}>
-          <TextField ref={input => (this.title = input)} floatingLabelText="Title" type="text" />
-          <br />
-          <TextField ref={input => (this.amount = input)} floatingLabelText="Amount" type="text" />
-          <br />
-          <TextField ref={input => (this.due = input)} floatingLabelText="Due Date" type="text" />
-          <br />
-          <TextField ref={input => (this.paid = input)} floatingLabelText="Paid Date" type="text" />
-          <br />
-          <RaisedButton
-            className="save-edit-btn"
-            label="Save Item"
-            labelColor={'#ffffff'}
-            backgroundColor="#a4c639"
-            type={'submit'}
-          />
+          <Card>
+            <CardText>
+              <TextField ref={input => (this.title = input)} floatingLabelText="Title" type="text" />
+              <br />
+              <TextField ref={input => (this.amount = input)} floatingLabelText="Amount" type="text" />
+              <br />
+              <TextField ref={input => (this.due = input)} floatingLabelText="Due Date" type="text" />
+              <br />
+              <TextField ref={input => (this.paid = input)} floatingLabelText="Paid Date" type="text" />
+              <br />
+            </CardText>
+            <CardActions>
+              <RaisedButton
+                className="save-edit-btn"
+                label="Save Item"
+                labelColor={'#ffffff'}
+                backgroundColor="#a4c639"
+                type={'submit'}
+              />
+            </CardActions>
+          </Card>
         </form>
       </section>
     );
