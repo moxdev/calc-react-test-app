@@ -9,10 +9,10 @@ class Create extends Component {
     e.preventDefault();
 
     const newItem = {
-      title: this.title.value,
-      amount: this.amount.value,
-      due: this.due.value,
-      paid: this.paid.value
+      title: this.title.getValue(),
+      amount: this.amount.getValue(),
+      due: this.due.getValue(),
+      paid: this.paid.getValue()
     };
 
     this.props.addItem(newItem);

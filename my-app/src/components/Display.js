@@ -1,52 +1,68 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
 class Display extends Component {
-  constructor() {
-    super();
-
-    this.handleChange = this.handleChange.bind(this);
-    this.renderItems = this.renderItems.bind(this);
-  }
-
-  handleChange(e, key) {
+  handleChange = (e, key) => {
     const item = this.props.items[key];
     // take copy of item
     const updateItem = { ...item, [e.target.name]: e.target.value };
+    console.log(updateItem);
     this.props.updateItem(key, updateItem);
-  }
+  };
 
-  renderItems(key) {
+  renderItems = key => {
     const items = this.props.items[key];
 
     return (
       <li className="item-wrapper" key={key}>
-        <input
-          value={items.title}
-          type="text"
+        <TextField
           name="title"
-          placeholder="title"
+          value={items.title}
+          ref={input => (this.title = input)}
+          floatingLabelText="Title"
+          type="text"
           onChange={e => this.handleChange(e, key)}
         />
-        <input
-          value={`$${items.amount}`}
-          type="text"
+        <br />
+        <TextField
           name="amount"
-          placeholder="amount"
-          onChange={e => this.handleChange(e, key)}
-        />
-        <input value={items.due} type="text" name="due" placeholder="due" onChange={e => this.handleChange(e, key)} />
-        <input
-          value={items.paid}
+          value={items.amount}
+          ref={input => (this.amount = input)}
+          floatingLabelText="Amount"
           type="text"
-          name="paid"
-          placeholder="paid"
           onChange={e => this.handleChange(e, key)}
         />
-        <button onClick={() => this.props.deleteItem(key)}>Delete</button>
+        <br />
+        <TextField
+          name="due"
+          value={items.due}
+          ref={input => (this.due = input)}
+          floatingLabelText="Due Date"
+          type="text"
+          onChange={e => this.handleChange(e, key)}
+        />
+        <br />
+        <TextField
+          name="paid"
+          value={items.paid}
+          ref={input => (this.due = input)}
+          floatingLabelText="Paid Date"
+          type="text"
+          onChange={e => this.handleChange(e, key)}
+        />
+        <RaisedButton
+          className="save-edit-btn"
+          label="Delete Item"
+          labelColor={'#ffffff'}
+          backgroundColor="#D32F2F"
+          onClick={() => this.props.deleteItem(key)}
+        />
       </li>
     );
-  }
+  };
 
   render() {
     return (
