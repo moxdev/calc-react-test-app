@@ -26,6 +26,8 @@
     "mocker-data-generator": "^2.2.0",
     "prop-types": "^15.6.0",
     "re-base": "^3.0.5",
+    "react-dnd": "^2.5.4",
+    "react-dnd-html5-backend": "^2.5.4",
     "react-gravatar": "^2.6.3",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
