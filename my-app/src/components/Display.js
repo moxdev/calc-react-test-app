@@ -21,9 +21,8 @@ class Display extends Component {
   };
 
   handleDelete = (e, key) => {
-    this.setState({ open: false });
-    // console.log(key);
-    // this.props.deleteItem(key);
+    e.preventDefault();
+    this.props.deleteItem(key);
   };
 
   handleChange = (e, key) => {
@@ -34,14 +33,10 @@ class Display extends Component {
 
   renderItems = key => {
     const items = this.props.items[key];
-    console.log(items);
-    const actions = [
-      <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />,
-      <FlatButton label="Discard" primary={true} onClick={this.handleClose} />
-    ];
+    const index = key;
 
     return (
-      <li className="item-wrapper" key={key}>
+      <li className="item-wrapper" key={key} index={index}>
         <Card>
           <CardTitle title={items.title} subtitle={items.due} />
 
@@ -52,6 +47,7 @@ class Display extends Component {
               ref={input => (this.title = input)}
               floatingLabelText="Title"
               type="text"
+              fullWidth={true}
               onChange={e => this.handleChange(e, key)}
             />
             <br />
@@ -61,6 +57,7 @@ class Display extends Component {
               ref={input => (this.amount = input)}
               floatingLabelText="Amount"
               type="text"
+              fullWidth={true}
               onChange={e => this.handleChange(e, key)}
             />
             <br />
@@ -70,6 +67,7 @@ class Display extends Component {
               ref={input => (this.due = input)}
               floatingLabelText="Due Date"
               type="text"
+              fullWidth={true}
               onChange={e => this.handleChange(e, key)}
             />
             <br />
@@ -79,6 +77,7 @@ class Display extends Component {
               ref={input => (this.due = input)}
               floatingLabelText="Paid Date"
               type="text"
+              fullWidth={true}
               onChange={e => this.handleChange(e, key)}
             />
           </CardText>
@@ -88,11 +87,8 @@ class Display extends Component {
               label="Delete Item"
               labelColor={'#ffffff'}
               backgroundColor="#D32F2F"
-              onClick={this.handleOpen}
+              onClick={e => this.handleDelete(e, index)}
             />
-            <Dialog actions={actions} modal={false} open={this.state.open} onRequestClose={this.handleClose}>
-              Discard Item? This action cannot be undone!
-            </Dialog>
           </CardActions>
         </Card>
       </li>
