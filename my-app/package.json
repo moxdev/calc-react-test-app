@@ -29,6 +29,7 @@
     "react-gravatar": "^2.6.3",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-sortable-hoc": "^0.6.8",
     "react-transition-group": "^2.2.1",
     "stylus": "^0.54.5"
   }

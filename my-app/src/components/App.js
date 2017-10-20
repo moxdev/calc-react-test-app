@@ -121,7 +121,6 @@ class App extends Component {
             <Create items={this.state.items} addItem={this.addItem} />
             <Display
               items={this.state.items}
-              index={this.state.items}
               loadSamples={this.loadSamples}
               updateItem={this.updateItem}
               deleteItem={this.removeItem}

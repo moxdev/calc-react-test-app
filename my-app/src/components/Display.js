@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -7,19 +8,13 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
+const SortableItem = SortableElement(({ value }) => <li>{value}</li>);
+
+const SortableList = SortableContainer(({ items }) => {
+  return <ul>{Object.keys(items).map(render(key, index))}</ul>;
+});
+
 class Display extends Component {
-  state = {
-    open: false
-  };
-
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
   handleDelete = (e, key) => {
     e.preventDefault();
     this.props.deleteItem(key);
@@ -31,12 +26,18 @@ class Display extends Component {
     this.props.updateItem(key, updateItem);
   };
 
-  renderItems = key => {
-    const items = this.props.items[key];
-    const index = key;
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState({
+      items: arrayMove(this.state.items, oldIndex, newIndex)
+    });
+  };
+
+  renderItems = (key, index) => {
+    // const items = this.props.items[key];
+    // const index = key;
 
     return (
-      <li className="item-wrapper" key={key} index={index}>
+      <SortableItem className="item-wrapper" key={key} index={index}>
         <Card>
           <CardTitle title={items.title} subtitle={items.due} />
 
@@ -91,16 +92,23 @@ class Display extends Component {
             />
           </CardActions>
         </Card>
-      </li>
+      </SortableItem>
     );
   };
 
   render() {
+    const style = {
+      backgroundColor: 'black',
+      color: 'white',
+      padding: '20px'
+    };
     return (
       <section className="display">
         <h1>Display</h1>
-
-        <ul className="list-of-items">{Object.keys(this.props.items).map(this.renderItems)}</ul>
+        <button style={style} onClick={this.props.loadSamples}>
+          Load Samples
+        </button>
+        <SortableList render={this.renderItems()} items={this.props.items} onSortEnd={this.onSortEnd} />
       </section>
     );
   }
